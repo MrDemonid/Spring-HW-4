@@ -5,23 +5,19 @@
     <title>Создание нового пользователя</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script>
-        function validateAndFormatDate() {
+        function validateForm() {
             const birthDateField = document.getElementById('birthDate');
-            let birthDate = birthDateField.value;
+            const birthDate = birthDateField.value.trim();
 
-            // Проверяем форматы и заменяем разделители на "."
-            const regexISO = /^\d{4}[-./]\d{2}[-./]\d{2}$/; // ГГГГ-ММ-ДД, ГГГГ/ММ/ДД, ГГГГ.ММ.ДД
-            const regexEU = /^\d{2}[-./]\d{2}[-./]\d{4}$/; // ДД-ММ-ГГГГ, ДД/ММ/ГГГГ, ДД.ММ.ГГГГ
+            // Проверяем, чтобы дата содержала два символа для дня и месяца
+            const datePattern = /^\d{1,4}[-./]\d{2}[-./]\d{2,4}$/;
 
-            if (regexISO.test(birthDate) || regexEU.test(birthDate)) {
-                // Преобразуем разделители "-" и "/" в "."
-                birthDate = birthDate.replace(/[-/]/g, '.');
-                birthDateField.value = birthDate; // Обновляем значение поля
-                return true;
-            } else {
-                alert("Введите дату в формате: ГГГГ-ММ-ДД, ДД-ММ-ГГГГ или с разделителями '.', '-', '/'.");
+            if (!datePattern.test(birthDate)) {
+                alert("Введите дату в формате: ГГГГ-ММ-ДД, ДД-ММ-ГГГГ или с разделителями '.', '-', '/'.\"" +
+                    " и убедитесь, что день и месяц состоят из двух цифр (например, 01.01.2024).");
                 return false;
             }
+            return true;
         }
     </script>
 </head>

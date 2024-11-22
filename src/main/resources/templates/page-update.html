@@ -5,7 +5,7 @@
     <title>Редактирование пользователя</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <script>
-        function validateDateFormat() {
+        function validateForm() {
             const birthDateField = document.getElementById('birthDate');
             const birthDate = birthDateField.value.trim();
 
@@ -13,47 +13,14 @@
             const datePattern = /^\d{1,4}[-./]\d{2}[-./]\d{2,4}$/;
 
             if (!datePattern.test(birthDate)) {
-                alert("Убедитесь, что день и месяц состоят из двух цифр (например, 01.01.2024).");
+                alert("Введите дату в формате: ГГГГ-ММ-ДД, ДД-ММ-ГГГГ или с разделителями '.', '-', '/'.\"" +
+                    " и убедитесь, что день и месяц состоят из двух цифр (например, 01.01.2024).");
                 return false;
             }
-
-            // Если всё корректно, отправляем форму
             return true;
         }
     </script>
 
-<!--    <script>-->
-<!--        function validateAndFormatDate() {-->
-<!--            const birthDateField = document.getElementById('birthDate');-->
-<!--            let birthDate = birthDateField.value.trim();-->
-
-<!--            // Регулярные выражения для допустимых форматов-->
-<!--            const regexISO = /^(\d{4})[-./](\d{2})[-./](\d{2})$/; // ГГГГ-ММ-ДД или ГГГГ/ММ/ДД или ГГГГ.ММ.ДД-->
-<!--            const regexEU = /^(\d{2})[-./](\d{2})[-./](\d{4})$/; // ДД-ММ-ГГГГ или ДД/ММ/ГГГГ или ДД.ММ.ГГГГ-->
-
-<!--            let formattedDate = null;-->
-
-<!--            // Если формат ISO (ГГГГ-ММ-ДД)-->
-<!--            if (regexISO.test(birthDate)) {-->
-<!--                formattedDate = birthDate.replace(/[-/.]/g, '-'); // Преобразуем в ГГГГ-ММ-ДД-->
-<!--            }-->
-<!--            // Если формат EU (ДД-ММ-ГГГГ), нужно переставить части-->
-<!--            else if (regexEU.test(birthDate)) {-->
-<!--                const parts = birthDate.match(regexEU);-->
-<!--                formattedDate = `${parts[3]}-${parts[2]}-${parts[1]}`; // Преобразуем в ГГГГ-ММ-ДД-->
-<!--            }-->
-
-<!--            // Если формат не подходит, выводим ошибку-->
-<!--            if (!formattedDate) {-->
-<!--                alert("Введите дату в формате: ГГГГ-ММ-ДД, ДД-ММ-ГГГГ или с разделителями '.', '-', '/'.");-->
-<!--                return false;-->
-<!--            }-->
-
-<!--            // Обновляем поле с датой-->
-<!--            birthDateField.value = formattedDate;-->
-<!--            return true;-->
-<!--        }-->
-<!--    </script>-->
 </head>
 <body>
 <h1>Редактирование пользователя</h1>

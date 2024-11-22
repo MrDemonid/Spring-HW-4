@@ -16,7 +16,7 @@ public class StringToLocalDateConverter implements Converter<String, LocalDate> 
 
     @Override
     public LocalDate convert(String source) {
-        if (source == null || source.isEmpty()) {
+        if (source.isEmpty()) {
             return null;
         }
 
@@ -25,6 +25,8 @@ public class StringToLocalDateConverter implements Converter<String, LocalDate> 
          */
         DateTimeFormatter[] formatters = {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+                DateTimeFormatter.ofPattern("yyyy.MM.dd"),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd"),
                 DateTimeFormatter.ofPattern("dd-MM-yyyy"),
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"),
                 DateTimeFormatter.ofPattern("dd.MM.yyyy")
@@ -36,8 +38,8 @@ public class StringToLocalDateConverter implements Converter<String, LocalDate> 
             } catch (DateTimeParseException ignored) {
             }
         }
-
         // ни один формат не подошел, выбрасываем ошибку
+        System.out.println("Неверный формат даты: " + source);
         throw new IllegalArgumentException("Неверный формат даты: " + source);
     }
 }
