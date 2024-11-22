@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ошибка</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="error-container">
+    <div class="error-icon">
+        &#9888; <!-- Восклицательный знак в треугольнике -->
+    </div>
+    <div class="error-message" th:text="${errormsg}"></div> <!-- Текст ошибки -->
+    <a href="/users" class="btn back-btn">Вернуться на главную</a> <!-- Кнопка для перехода на главную -->
+</div>
+</body>
+</html>

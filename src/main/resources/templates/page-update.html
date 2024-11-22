@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование пользователя</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script>
+        function validateDateFormat() {
+            const birthDateField = document.getElementById('birthDate');
+            const birthDate = birthDateField.value.trim();
+
+            // Проверяем, чтобы дата содержала два символа для дня и месяца
+            const datePattern = /^\d{1,4}[-./]\d{2}[-./]\d{2,4}$/;
+
+            if (!datePattern.test(birthDate)) {
+                alert("Убедитесь, что день и месяц состоят из двух цифр (например, 01.01.2024).");
+                return false;
+            }
+
+            // Если всё корректно, отправляем форму
+            return true;
+        }
+    </script>
+
+<!--    <script>-->
+<!--        function validateAndFormatDate() {-->
+<!--            const birthDateField = document.getElementById('birthDate');-->
+<!--            let birthDate = birthDateField.value.trim();-->
+
+<!--            // Регулярные выражения для допустимых форматов-->
+<!--            const regexISO = /^(\d{4})[-./](\d{2})[-./](\d{2})$/; // ГГГГ-ММ-ДД или ГГГГ/ММ/ДД или ГГГГ.ММ.ДД-->
+<!--            const regexEU = /^(\d{2})[-./](\d{2})[-./](\d{4})$/; // ДД-ММ-ГГГГ или ДД/ММ/ГГГГ или ДД.ММ.ГГГГ-->
+
+<!--            let formattedDate = null;-->
+
+<!--            // Если формат ISO (ГГГГ-ММ-ДД)-->
+<!--            if (regexISO.test(birthDate)) {-->
+<!--                formattedDate = birthDate.replace(/[-/.]/g, '-'); // Преобразуем в ГГГГ-ММ-ДД-->
+<!--            }-->
+<!--            // Если формат EU (ДД-ММ-ГГГГ), нужно переставить части-->
+<!--            else if (regexEU.test(birthDate)) {-->
+<!--                const parts = birthDate.match(regexEU);-->
+<!--                formattedDate = `${parts[3]}-${parts[2]}-${parts[1]}`; // Преобразуем в ГГГГ-ММ-ДД-->
+<!--            }-->
+
+<!--            // Если формат не подходит, выводим ошибку-->
+<!--            if (!formattedDate) {-->
+<!--                alert("Введите дату в формате: ГГГГ-ММ-ДД, ДД-ММ-ГГГГ или с разделителями '.', '-', '/'.");-->
+<!--                return false;-->
+<!--            }-->
+
+<!--            // Обновляем поле с датой-->
+<!--            birthDateField.value = formattedDate;-->
+<!--            return true;-->
+<!--        }-->
+<!--    </script>-->
+</head>
+<body>
+<h1>Редактирование пользователя</h1>
+<form th:action="@{/users}" th:method="put" onsubmit="return validateForm()">
+    <div>
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" th:value="${user.id}" readonly>
+    </div>
+    <div>
+        <label for="firstName">Имя:</label>
+        <input type="text" id="firstName" name="firstName" th:value="${user.firstName}" required>
+    </div>
+    <div>
+        <label for="lastName">Фамилия:</label>
+        <input type="text" id="lastName" name="lastName" th:value="${user.lastName}" required>
+    </div>
+    <div>
+        <label for="birthDate">Дата рождения:</label>
+        <input type="text" id="birthDate" name="birthDate" th:value="${user.birthDate}" placeholder="ГГГГ-ММ-ДД" required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" th:value="${user.email}" required>
+    </div>
+    <div class="actions">
+        <a href="javascript:history.back()" class="btn back-btn">Отмена</a>
+        <button type="submit" class="btn add-btn">Применить</button>
+    </div>
+</form>
+</body>
+</html>

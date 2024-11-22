@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание нового пользователя</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script>
+        function validateAndFormatDate() {
+            const birthDateField = document.getElementById('birthDate');
+            let birthDate = birthDateField.value;
+
+            // Проверяем форматы и заменяем разделители на "."
+            const regexISO = /^\d{4}[-./]\d{2}[-./]\d{2}$/; // ГГГГ-ММ-ДД, ГГГГ/ММ/ДД, ГГГГ.ММ.ДД
+            const regexEU = /^\d{2}[-./]\d{2}[-./]\d{4}$/; // ДД-ММ-ГГГГ, ДД/ММ/ГГГГ, ДД.ММ.ГГГГ
+
+            if (regexISO.test(birthDate) || regexEU.test(birthDate)) {
+                // Преобразуем разделители "-" и "/" в "."
+                birthDate = birthDate.replace(/[-/]/g, '.');
+                birthDateField.value = birthDate; // Обновляем значение поля
+                return true;
+            } else {
+                alert("Введите дату в формате: ГГГГ-ММ-ДД, ДД-ММ-ГГГГ или с разделителями '.', '-', '/'.");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Создание нового пользователя</h1>
+<form th:action="@{/users}" th:method="post" onsubmit="return validateForm()">
+    <div>
+        <label for="firstName">Имя:</label>
+        <input type="text" id="firstName" name="firstName" placeholder="Введите имя" required>
+    </div>
+    <div>
+        <label for="lastName">Фамилия:</label>
+        <input type="text" id="lastName" name="lastName" placeholder="Введите фамилию" required>
+    </div>
+    <div>
+        <label for="birthDate">Дата рождения:</label>
+        <input type="text" id="birthDate" name="birthDate" placeholder="ДД-ММ-ГГГГ" required>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Введите email" required>
+    </div>
+    <div class="actions">
+        <a href="javascript:history.back()" class="btn back-btn">Отмена</a>
+        <button type="submit" class="btn add-btn">Создать</button>
+    </div>
+</form>
+</body>
+</html>
